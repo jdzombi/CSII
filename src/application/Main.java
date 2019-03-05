@@ -14,7 +14,7 @@ public class Main extends Application {
 		
 		try {
 			
-			Parent root= FXMLLoader.load(getClass().getClassLoader().getResource("/fxml/JavaFX.fxml"));
+			Parent root= FXMLLoader.load(getClass().getClassLoader().getResource("JavaFX.fxml"));
 			Scene scene = new Scene(root,400,400);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Game");
