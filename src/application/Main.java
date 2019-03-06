@@ -29,7 +29,7 @@ public class Main extends Application {
 			
 			ResourceBundle resources;
 			
-			txtArea.setText("gey");
+			txtArea.appendText("gey");
 
 			
 			
@@ -42,6 +42,7 @@ public class Main extends Application {
 
 	
 	public static void main(String[] args) {
+		
 		launch(args);
 		
 		
