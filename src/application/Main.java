@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
 
 public class Main extends Application {
 	@FXML
-	protected TextArea txtArea;
+	public TextArea txtArea;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -29,7 +29,7 @@ public class Main extends Application {
 			
 			ResourceBundle resources;
 			
-			txtArea.appendText("gey");
+			txtArea.setText("gey");
 
 			
 			
