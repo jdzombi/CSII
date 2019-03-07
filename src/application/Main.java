@@ -11,11 +11,16 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+			try {
 			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("JavaFX.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Game");
-			primaryStage.show();			
+			primaryStage.show();		
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 	}
 	
 	public static void main(String[] args) {
