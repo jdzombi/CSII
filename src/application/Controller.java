@@ -14,46 +14,43 @@ public class Controller implements Initializable {
 	@FXML
 	public TextArea dialogue;
 	@FXML
-	public TextField Uinput;
-
+	public TextField inputField;
 	private boolean isChangeName = false;
 
+	
+	
 	@FXML
 	public void inputTextHandler(ActionEvent event) {
 
-// inputText is for passing the users text into the primary console, unmodified.
-// checkText is converted to lowercase and used for checking for game commands.
+		// inputText is for passing the users text into the primary console, unmodified.
+		// checkText is converted to lowercase and used for checking for game commands.
 		String inputText = "";
 		String checkText = "";
-		inputText = Uinput.getText();
-		checkText = Uinput.getText().toLowerCase();
-// Display users input as formatted text in primary console.
+		inputText = inputField.getText();
+		checkText = inputField.getText().toLowerCase();
+
+		// Display users input as formatted text in primary console.
 		dialogue.appendText(pname + ":  " + inputText + "\n");
 
-		if (isChangeName == true) {
-			if (pname.equals("") && Uinput.getText().equals("")) {
-				dialogue.appendText("Error:  Please Re-enter Name\n");
-			} else {
-				pname = dialogue.getText();
-			}
-		}
-
+		
 		beginning();
+		
 
 	}
 
 	public void beginning() {
-
+		if(!isChangeName) {
+			dialogue.appendText("lmao");
+		}
 	}
 
 	public String pname = "";
 
-	// ----------------------------------------------------- beginning
-	// ------------------------------------------------------------------------------
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		beginning();
-
+		
 	}
 
 }
