@@ -18,7 +18,7 @@ public class Controller implements Initializable {
 	public TextField inputField;
 	private boolean isChangeName = false;
 
-	private int beginning_step = 1;
+	private int sequence = 1;
 	
 	
 	 private void game_Exit(  )
@@ -55,10 +55,18 @@ public class Controller implements Initializable {
 		            {
 		                pname = inputField.getText();
 		                isChangeName = false;
-		                beginning_step = 5;
+		                sequence = 2;
 		            }
 		        }
 
+		        
+		        if(pname != "") {
+		        	if(sequence == 2) {
+		    			dialogue.appendText("Ah, " + pname + ". Nice to finally meet you. \n");
+		    			sequence+=1;
+		        	}
+		    		
+		        }
 		// Clear TextField
 		        inputField.clear();
 
@@ -72,6 +80,7 @@ public class Controller implements Initializable {
 	public void beginning() {
 		dialogue.setText("What is your name?");
 		isChangeName = true;
+		
 		
 		
 	}
