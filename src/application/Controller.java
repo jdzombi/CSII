@@ -63,14 +63,14 @@ public class Controller implements Initializable {
 		        if(pname != "") {
 		        	if(sequence == 2) {
 		    			dialogue.appendText("Ah, " + pname + ". Nice to finally meet you. \n");
-		    			sequence+=1;
+		    			sequence = 3;
 		        	}
 		    		
 		        }
 		// Clear TextField
 		        inputField.clear();
 
-		// Check if it is the beginning sequence
+		
 		        
 
 		// Pass the users input text to functions which will check for keywords
@@ -78,7 +78,7 @@ public class Controller implements Initializable {
 		      
 	}
 	public void beginning() {
-		dialogue.setText("What is your name?");
+		dialogue.setText("What is your name?\n");
 		isChangeName = true;
 		
 		
