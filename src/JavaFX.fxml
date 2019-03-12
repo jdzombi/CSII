@@ -16,7 +16,7 @@
                   <TextArea fx:id="dialogue" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER" />
                </center>
                <bottom>
-                  <TextField fx:id="inputField" onAction="#inputTextHandler" promptText="&gt;" text="&gt;" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="inputField" onAction="#inputTextHandler" promptText="&gt;" BorderPane.alignment="CENTER" />
                </bottom>
                <top>
                   <TextField fx:id="scoreField" editable="false" text="Score:" BorderPane.alignment="CENTER">

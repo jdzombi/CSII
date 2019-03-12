@@ -63,15 +63,17 @@ public class Controller implements Initializable {
 		        inputField.clear();
 
 		// Check if it is the beginning sequence
-		        beginning();
+		        
 
 		// Pass the users input text to functions which will check for keywords
 		        checkText_General( checkText );
 		      
 	}
 	public void beginning() {
-		dialogue.setText("uwu");
-	
+		dialogue.setText("What is your name?");
+		isChangeName = true;
+		
+		
 	}
 
 	public String pname = "";
