@@ -90,7 +90,7 @@ public class Controller implements Initializable {
 	public void checkText_General( String checkText ){
 
         // Check input for game commands
-        if( checkText.equals("quit")){
+        if(checkText.equals("quit")){
             game_Exit();
         }
     }
