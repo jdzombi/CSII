@@ -84,6 +84,7 @@ public class Controller implements Initializable {
 		        
 		        if(score >= 100) {
 		        	scoreField.setText("Score: "+score + "/100 Congrats!");
+		        	scoreEnable = false;
 		        }
 		      
 	}
