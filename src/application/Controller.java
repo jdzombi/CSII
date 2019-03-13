@@ -1,6 +1,7 @@
 package application;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -19,8 +20,13 @@ public class Controller implements Initializable {
 	public TextField scoreField;
 	private boolean isChangeName = false;
 	private boolean scoreEnable = true;
+	private boolean inventoryEnable = true;
+	private boolean sword = false;
+	
+	ArrayList<String> inventory = new ArrayList<String>();
+	public String pname = "";
+	
 	int score = 0;
-
 	private int sequence = 1;
 	
 	
@@ -50,6 +56,8 @@ public class Controller implements Initializable {
 		        if( isChangeName == true )
 		        {
 		        	scoreEnable = false;
+		        	inventoryEnable = false;
+		        	
 		            if( pname.equals( "" ) && inputField.getText().equals( "" ) )
 		            {
 		                dialogue.appendText( "Error:  Please Re-enter Name\n" );
@@ -70,6 +78,14 @@ public class Controller implements Initializable {
 		    			
 		        	}
 		        	
+		        	
+		        
+		        if(sequence == 3) {
+		        	dialogue.appendText("\nThere is a sword in front of you. Type -pick up sword- to add it to your inventory.\n");
+		        	sword = true;
+		        	sequence = 4;
+		        }
+		        	
 		        }
 		// Clear TextField
 		        inputField.clear();
@@ -81,6 +97,8 @@ public class Controller implements Initializable {
 		        checkText_General( checkText );
 		        scoreField.setText("Score: " + score +"/100");
 		        scoreEnable = true;
+		        inventoryEnable = true;
+		        
 		        
 		        if(score >= 100) {
 		        	scoreField.setText("Score: "+score + "/100 Congrats!");
@@ -90,13 +108,15 @@ public class Controller implements Initializable {
 	}
 	public void beginning() {
 		dialogue.setText("What is your name?\n");
+		inventory.add("apple");
 		isChangeName = true;
+		
 		
 		
 		
 	}
 
-	public String pname = "";
+	
 
 	public void checkText_General( String checkText ){
 
@@ -107,6 +127,19 @@ public class Controller implements Initializable {
         
         if(checkText.equals("owo") && scoreEnable) {
         	score += 50;
+        }
+        
+        if(checkText.equals("inventory") && inventoryEnable) {
+        	//showing the inventory
+        	dialogue.appendText("\nINVENTORY:\n");
+        	for(int i = 0; i < inventory.size(); i++)
+        	dialogue.appendText(inventory.get(i) + "\n");
+        	
+        }
+        if(checkText.equals("pick up sword") && sword) {
+        	inventory.add("sword");
+        	sword = false;
+        	dialogue.appendText("\nYou got a sword! \n");
         }
     }
 
