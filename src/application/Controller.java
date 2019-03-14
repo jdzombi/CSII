@@ -37,7 +37,7 @@ public class Controller implements Initializable {
 	    }
 	
 	@FXML
-	public void inputTextHandler(ActionEvent event){
+	public void inputTextHandler(ActionEvent event) throws InterruptedException{
 
 		// inputText is for passing the users text into the primary console, unmodified.
 		// checkText is converted to lowercase and used for checking for game commands.
@@ -60,7 +60,7 @@ public class Controller implements Initializable {
 		        	
 		            if( pname.equals( "" ) && inputField.getText().equals( "" ) )
 		            {
-		                dialogue.appendText( "Error:  Please Re-enter Name\n" );
+		                dialogue.appendText( "Error:  Please Enter a Valid Name\n" );
 		            }
 		            else
 		            {
@@ -85,12 +85,25 @@ public class Controller implements Initializable {
 		        	sword = true;
 		        	sequence = 4;
 		        }
-		        	
+		        
+		        if(sword) {
+		        if(checkText.equals("pick up sword")) {
+		        	inventory.add("sword");
+		        	sword = false;
+		        	dialogue.appendText("\nYou got a sword! View it in your items by typing -inventory-. \n");
+		        	sequence = 5;
+		        }
+		        }
+		        
+		        
 		        if(sequence == 5 && checkText.equals("inventory")) {
-		        	dialogue.appendText("\nTUTORIAL COMPLETE\n");
-		        	
+		        	dialogue.appendText("\nYou have made it through the tutorial!\n");
 		        	sequence = 6;
 		        }
+		        
+		       
+		        
+		        
 		        
 		        }
 		// Clear TextField
@@ -112,13 +125,17 @@ public class Controller implements Initializable {
 		        }
 		      
 	}
-	public void beginning() {
+	public void beginning() throws InterruptedException{
 		dialogue.setText("What is your name?\n");
 		inventory.add("apple");
-		isChangeName = true;
+		if(sequence==1) {
+			isChangeName = true;
+		}
 		
 		
-		
+		if(sequence == 7) {
+        	dialogue.setText("complete");
+        }
 		
 	}
 
@@ -142,20 +159,18 @@ public class Controller implements Initializable {
         	dialogue.appendText(inventory.get(i) + "\n");
         	
         }
-        if(checkText.equals("pick up sword") && sword) {
-        	inventory.add("sword");
-        	sword = false;
-        	dialogue.appendText("\nYou got a sword! View it in your items by typing -inventory-. \n");
-        	sequence = 5;
-        	
-        }
+       
     }
 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		scoreField.appendText(" " + score +"/100");
-		beginning();
+		try {
+			beginning();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
