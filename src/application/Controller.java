@@ -86,6 +86,12 @@ public class Controller implements Initializable {
 		        	sequence = 4;
 		        }
 		        	
+		        if(sequence == 5 && checkText.equals("inventory")) {
+		        	dialogue.appendText("\nTUTORIAL COMPLETE\n");
+		        	
+		        	sequence = 6;
+		        }
+		        
 		        }
 		// Clear TextField
 		        inputField.clear();
@@ -118,7 +124,7 @@ public class Controller implements Initializable {
 
 	
 
-	public void checkText_General( String checkText ){
+	public void checkText_General(String checkText){
 
         // Check input for game commands
         if(checkText.equals("quit")){
@@ -139,7 +145,9 @@ public class Controller implements Initializable {
         if(checkText.equals("pick up sword") && sword) {
         	inventory.add("sword");
         	sword = false;
-        	dialogue.appendText("\nYou got a sword! \n");
+        	dialogue.appendText("\nYou got a sword! View it in your items by typing -inventory-. \n");
+        	sequence = 5;
+        	
         }
     }
 
