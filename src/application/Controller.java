@@ -183,7 +183,9 @@ public class Controller implements Initializable {
         	else if((checkText.contains("id card") || checkText.contains("id")) && inventory.contains("ID Card")) {
             	dialogue.appendText("\nYour standard Identification Card for the Federation of Engineers and Laborers Looking At Stars.\n\nNAME: Jack \nOCC: Janitor.");
             	}
-        	
+        	else if(checkText.contains("cola") && inventory.contains("Bottle of Cola")) {
+            	dialogue.appendText("\nA bottle of the finest made Cola in all of the Galaxy... or at least that's what the label says.\n");
+            	}
         	
         	
         }
