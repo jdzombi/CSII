@@ -1,7 +1,11 @@
 package application;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -17,21 +21,28 @@ public class Controller implements Initializable {
 	public TextArea dialogue;
 	@FXML
 	public TextField inputField;
+	@FXML
 	public TextField scoreField;
-	private boolean isChangeName = false;
+	
+	private boolean tutorial = false;
 	private boolean scoreEnable = true;
 	private boolean inventoryEnable = true;
 	private boolean sword = false;
+	private boolean introScene = false;
+	private boolean controls = false;
 	
-	ArrayList<String> inventory = new ArrayList<String>();
-	public String pname = "";
+	Date time = new Date();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	
+	Collection<String> inventory = new ArrayList<>();
+	final Iterator<String> i = inventory.iterator();
+	public String pname = "???";
 	
 	int score = 0;
 	private int sequence = 1;
 	
 	
-	 private void game_Exit(  )
-	    {
+	 private void game_Exit(){
 	        Platform.exit();
 	        System.exit(0);
 	    }
@@ -53,59 +64,54 @@ public class Controller implements Initializable {
 
 
 		// Beginning Sequence
-		        if( isChangeName == true )
-		        {
+		        
+
+		        if(tutorial == true){
 		        	scoreEnable = false;
-		        	inventoryEnable = false;
 		        	
-		            if( pname.equals( "" ) && inputField.getText().equals( "" ) )
-		            {
-		                dialogue.appendText( "Error:  Please Enter a Valid Name\n" );
-		            }
-		            else
-		            {
-		                pname = inputField.getText();
-		                isChangeName = false;
-		                sequence = 2;
+		            	if(checkText.contains("yes")) {
+		                dialogue.appendText("\n In that case, let me tell you how to play!\n");
+		                controls = true;
+		            	}
+		            		else if(inputField.getText().equals("no")) {
+		            			sequence = 5;
+		            			introScene = true;
+		            		}
+		            	
+		            if(controls==true) {
+		            	dialogue.appendText("\nIn this text-based adventure game, you will mostly respond to prompts on the screen, but you do have commands you can access at (mostly) any time!");
+		            	dialogue.appendText("\n"); dialogue.appendText("\n-INVENTORY: Displays your currently held items.");
+		            	dialogue.appendText("\n-CHECK <ITEM>: Allows you to check an item in your inventory.");
+		            	dialogue.appendText("\n-SAVE");
+		            	dialogue.appendText("\n-LOAD");
+		            	dialogue.appendText("\n-QUIT: Exits you out of the game. Be sure to save first!\n");
+		            	dialogue.appendText("\nStart off by trying the -inventory- command!\n");
+		            	sequence = 3;
+		            	controls = false;
 		            }
 		        }
+		        	
+		        	if(sequence == 3 && checkText.contains("inventory")) {
+		        		inventoryEnable = true;
+		        		dialogue.appendText("\nYou can get a description of these items by using the -check- command.\n");
+		        		sequence = 4;
+		        	}
+
 
 		        
-		        if(pname != "") {
-		        	if(sequence == 2) {
-		    			dialogue.appendText("Ah, " + pname + ". Nice to finally meet you. \n");
-		    			sequence = 3;
-		    			
-		        	}
+		 
 		        	
 		        	
-		        
-		        if(sequence == 3) {
-		        	dialogue.appendText("\nThere is a sword in front of you. Type -pick up sword- to add it to your inventory.\n");
-		        	sword = true;
-		        	sequence = 4;
+		        if(introScene == true) {
+		        	dialogue.setText(""+dateFormat.format(time));
+		        	
 		        }
-		        
-		        if(sword) {
-		        if(checkText.equals("pick up sword")) {
-		        	inventory.add("sword");
-		        	sword = false;
-		        	dialogue.appendText("\nYou got a sword! View it in your items by typing -inventory-. \n");
-		        	sequence = 5;
-		        }
-		        }
-		        
-		        
-		        if(sequence == 5 && checkText.equals("inventory")) {
-		        	dialogue.appendText("\nYou have made it through the tutorial!\n");
-		        	sequence = 6;
-		        }
-		        
+		      
 		       
 		        
 		        
 		        
-		        }
+		        
 		// Clear TextField
 		        inputField.clear();
 
@@ -113,7 +119,7 @@ public class Controller implements Initializable {
 		        
 
 		// Pass the users input text to functions which will check for keywords
-		        checkText_General( checkText );
+		        checkText_General(checkText);
 		        scoreField.setText("Score: " + score +"/100");
 		        scoreEnable = true;
 		        inventoryEnable = true;
@@ -126,16 +132,22 @@ public class Controller implements Initializable {
 		      
 	}
 	public void beginning() throws InterruptedException{
-		dialogue.setText("What is your name?\n");
-		inventory.add("apple");
+		inventoryEnable = false;
+		dialogue.setText("Welcome! Do you wish to do the tutorial? <YES/NO>\n");
+		inventoryEnable = false;
+		inventory.add("ID Card");
+		inventory.add("Bottle of Cola");
+		inventory.add("M.E.H.");
+		
 		if(sequence==1) {
-			isChangeName = true;
+			tutorial = true;
 		}
 		
 		
-		if(sequence == 7) {
-        	dialogue.setText("complete");
-        }
+		
+		
+		
+		
 		
 	}
 
@@ -155,11 +167,26 @@ public class Controller implements Initializable {
         if(checkText.equals("inventory") && inventoryEnable) {
         	//showing the inventory
         	dialogue.appendText("\nINVENTORY:\n");
-        	for(int i = 0; i < inventory.size(); i++)
-        	dialogue.appendText(inventory.get(i) + "\n");
         	
+        	for (String s : inventory) {
+        		dialogue.appendText("-" +s +"\n");
+        		}
+        	dialogue.appendText("\n");
         }
        
+        if(checkText.contains("check") && inventoryEnable){
+        	
+        	if((checkText.contains("meh") || checkText.contains("m.e.h.")) && inventory.contains("M.E.H.")) {
+        	dialogue.appendText("\nThe Multipurpose Encyclopedia and Helper (M.E.H. for short) is a standard knowledgebase with additional functionality through the use of Expansion Chips.");
+        	}
+        	
+        	else if((checkText.contains("id card") || checkText.contains("id")) && inventory.contains("ID Card")) {
+            	dialogue.appendText("\nYour standard Identification Card for the Federation of Engineers and Laborers Looking At Stars.\n\nNAME: Jack \nOCC: Janitor.");
+            	}
+        	
+        	
+        	
+        }
     }
 
 	
