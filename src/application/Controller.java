@@ -62,7 +62,6 @@ public class Controller implements Initializable {
 		        dialogue.appendText( pname + ": " + inputText + "\n" );
 
 
-
 		// Beginning Sequence
 		        
 
@@ -102,8 +101,17 @@ public class Controller implements Initializable {
 		 
 		        	
 		        	
+		        	
+		        	
+		        	
 		        if(introScene == true) {
-		        	dialogue.setText(""+dateFormat.format(time));
+		        	//""+dateFormat.format(time) real time
+		        	dialogue.setText("Date: ");
+		        	scoreEnable = true;
+		        	dialogue.appendText("\nTESTING");
+	            
+		        	
+		        	
 		        	
 		        }
 		      
@@ -173,6 +181,11 @@ public class Controller implements Initializable {
         		}
         	dialogue.appendText("\n");
         }
+        
+        if(checkText.equals("jack?")) {
+        	dialogue.appendText("\nThat's you!\n");
+        	pname = "Jack";
+        }
        
         if(checkText.contains("check") && inventoryEnable){
         	
@@ -180,13 +193,14 @@ public class Controller implements Initializable {
         	dialogue.appendText("\nThe Multipurpose Encyclopedia and Helper (M.E.H. for short) is a standard knowledgebase with additional functionality through the use of Expansion Chips.");
         	}
         	
-        	else if((checkText.contains("id card") || checkText.contains("id")) && inventory.contains("ID Card")) {
-            	dialogue.appendText("\nYour standard Identification Card for the Federation of Engineers and Laborers Looking At Stars.\n\nNAME: Jack \nOCC: Janitor.");
+        	else if(checkText.contains("id") && inventory.contains("ID Card")) {
+            	dialogue.appendText("\nYour standard Identification Card for the Federation of Engineers and Laborers Looking At Stars.\nNAME: Jack \nOCC: Janitor.\nNot the flashiest job, but certainly the most noble!\n\n");
+            	pname = "Jack";
             	}
         	else if(checkText.contains("cola") && inventory.contains("Bottle of Cola")) {
             	dialogue.appendText("\nA bottle of the finest made Cola in all of the Galaxy... or at least that's what the label says.\n");
             	}
-        	
+        
         	
         }
     }
