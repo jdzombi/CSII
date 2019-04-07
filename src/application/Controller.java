@@ -30,6 +30,7 @@ public class Controller implements Initializable {
 	private boolean sword = false;
 	private boolean introScene = false;
 	private boolean controls = false;
+	private boolean quit = false;
 	
 	Date time = new Date();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
@@ -39,8 +40,8 @@ public class Controller implements Initializable {
 	public String pname = "???";
 	
 	int score = 0;
-	private int sequence = 1;
-	
+	private int sequence = 0;
+	private int gameSequence = 0;
 	
 	 private void game_Exit(){
 	        Platform.exit();
@@ -57,30 +58,48 @@ public class Controller implements Initializable {
 		        inputText = inputField.getText();
 		        checkText = inputField.getText().toLowerCase();
 
+		        
+		 //Quit game function
+		        
+		        if(quit) {
+		        	if(checkText.equals("quit")) {
+		            	game_Exit();
+		            	}
+		            	else if(checkText.equals("cancel")) {
+		            		dialogue.appendText("\nOh, in that case. Carry on!\n\n");
+		            		
+		            		quit = false;
+		            	}
+		        	
+		        }
+		        
+		       
 
 		// Display users input as formatted text in primary console.
 		        dialogue.appendText( pname + ": " + inputText + "\n" );
 
 
-		// Beginning Sequence
+		// Tutorial
 		        
 
-		        if(tutorial == true){
+		        if(tutorial == true && introScene == false){
 		        	scoreEnable = false;
 		        	
-		            	if(checkText.contains("yes")) {
-		                dialogue.appendText("\n In that case, let me tell you how to play!\n");
+		            	if(checkText.equals("yes") && quit == false) {
+		                dialogue.setText("In that case, let me tell you how to play!\n");
 		                controls = true;
+		                
 		            	}
-		            		else if(inputField.getText().equals("no")) {
+		            		else if(checkText.equals("no") && quit == false) {
 		            			sequence = 5;
 		            			introScene = true;
+		            			gameSequence = 1;
 		            		}
 		            	
 		            if(controls==true) {
-		            	dialogue.appendText("\nIn this text-based adventure game, you will mostly respond to prompts on the screen, but you do have commands you can access at (mostly) any time!");
+		            	dialogue.appendText("\nIn this text-based adventure game, you will respond to prompts on the screen, but you do have commands you can access at (mostly) any time!");
 		            	dialogue.appendText("\n"); dialogue.appendText("\n-INVENTORY: Displays your currently held items.");
-		            	dialogue.appendText("\n-CHECK <ITEM>: Allows you to check an item in your inventory.");
+		            	dialogue.appendText("\n-CHECK <ITEM>: Allows you to check an item in your inventory or any other interactable item.");
 		            	dialogue.appendText("\n-SAVE");
 		            	dialogue.appendText("\n-LOAD");
 		            	dialogue.appendText("\n-QUIT: Exits you out of the game. Be sure to save first!\n");
@@ -90,31 +109,37 @@ public class Controller implements Initializable {
 		            }
 		        }
 		        	
-		        	if(sequence == 3 && checkText.contains("inventory")) {
-		        		inventoryEnable = true;
-		        		dialogue.appendText("\nYou can get a description of these items by using the -check- command.\n");
-		        		sequence = 4;
+		        if(sequence==3 && checkText.equals("inventory")) {
+					sequence = 4;
+				}
+		        	
+		        
+
+		        	if(sequence == 4) {
+		        		dialogue.appendText("\nYou can also check things around you that are indicated by special markers. Like this <apple> right here. Give it a shot!\n");
+		        		sequence = 5;
 		        	}
-
-
 		        
 		 
 		        	
 		        	
 		        	
 		        	
-		        	
+		        //Beginning of the game
+		        
 		        if(introScene == true) {
 		        	//""+dateFormat.format(time) real time
-		        	dialogue.setText("Date: ");
-		        	scoreEnable = true;
-		        	dialogue.appendText("\nTESTING");
-	            
 		        	
+		        	if(gameSequence == 1) {
+		        	dialogue.setText("DATE: February 15th, 30XX. TIME: 7:00AM.\n");
+		        	scoreEnable = true;
+		        	dialogue.appendText("\n...Hm? It seems like your shift doesn't start for another 2 hours.\n");
+		        	dialogue.appendText("");
+		        	
+		         }
 		        	
 		        	
 		        }
-		      
 		       
 		        
 		        
@@ -123,6 +148,8 @@ public class Controller implements Initializable {
 		// Clear TextField
 		        inputField.clear();
 
+		        
+		        beginning();
 		
 		        
 
@@ -140,17 +167,21 @@ public class Controller implements Initializable {
 		      
 	}
 	public void beginning() throws InterruptedException{
+		
+		if(sequence==0) {
 		inventoryEnable = false;
 		dialogue.setText("Welcome! Do you wish to do the tutorial? <YES/NO>\n");
-		inventoryEnable = false;
 		inventory.add("ID Card");
 		inventory.add("Bottle of Cola");
 		inventory.add("M.E.H.");
-		
+		sequence = 1;
+		}
 		if(sequence==1) {
 			tutorial = true;
 		}
-		
+		if(sequence==2) {
+			controls = true;
+		}
 		
 		
 		
@@ -165,15 +196,26 @@ public class Controller implements Initializable {
 
         // Check input for game commands
         if(checkText.equals("quit")){
-            game_Exit();
+            quit = true;
+        	dialogue.appendText("\nAre you sure you want to quit?\n");
+        	dialogue.appendText("Type -QUIT- to confirm, otherwise type -CANCEL-. \n");
+        	
         }
         
+        // Secrets
         if(checkText.equals("owo") && scoreEnable) {
         	score += 50;
         }
         
+        if(checkText.equals("jack?") || checkText.equals("who is jack?")) {
+        	dialogue.appendText("\nThat's you!\n");
+        	pname = "Jack";
+        }
+        
+        
+       
+        //showing the inventory
         if(checkText.equals("inventory") && inventoryEnable) {
-        	//showing the inventory
         	dialogue.appendText("\nINVENTORY:\n");
         	
         	for (String s : inventory) {
@@ -182,11 +224,10 @@ public class Controller implements Initializable {
         	dialogue.appendText("\n");
         }
         
-        if(checkText.equals("jack?")) {
-        	dialogue.appendText("\nThat's you!\n");
-        	pname = "Jack";
-        }
-       
+        
+        
+        
+        //inventory item checks
         if(checkText.contains("check") && inventoryEnable){
         	
         	if((checkText.contains("meh") || checkText.contains("m.e.h.")) && inventory.contains("M.E.H.")) {
