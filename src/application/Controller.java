@@ -38,6 +38,7 @@ public class Controller implements Initializable {
 	Collection<String> inventory = new ArrayList<>();
 	final Iterator<String> i = inventory.iterator();
 	public String pname = "???";
+	public String breakln = "------------------------------------\n";
 	
 	int score = 0;
 	private int sequence = 0;
@@ -133,10 +134,54 @@ public class Controller implements Initializable {
 		        	if(gameSequence == 1) {
 		        	dialogue.setText("DATE: February 15th, 30XX. TIME: 7:00AM.\n");
 		        	scoreEnable = true;
-		        	dialogue.appendText("\n...Hm? It seems like your shift doesn't start for another 2 hours.\n");
-		        	dialogue.appendText("");
+		        	dialogue.appendText(breakln);
+		        	dialogue.appendText("[BZZT]... [BZZT]... [BZZT]... You awake to the drone of your roommates alarm clock.");
+		        	dialogue.appendText("\n...Hm? It seems like your shift doesn't start for another 2 hours...\n");
+		        	dialogue.appendText(breakln);
+		        	dialogue.appendText("1.[Get out of bed]\n");
+		        	dialogue.appendText("2.[Sleep in]\n\n");
+		        	gameSequence = 2;
+		        	}
+		        	if(checkText.equals("1") && gameSequence == 2) {
+		        		gameSequence = 3;
+		        		dialogue.setText("DATE: February 15th, 30XX. TIME: 7:17AM.\n");
+		        		scoreEnable = true;
+			        	dialogue.appendText(breakln);
+			        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
+			        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XgZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
+			        	dialogue.appendText(breakln);
+			        	dialogue.appendText("1.[Check room]");
+			        	
+			        	if(gameSequence == 2 && checkText.equals("1")) {
+			        		
+			        	}
+			        	
+		        	}
 		        	
-		         }
+		        	
+		        	
+		        	
+		        	if(checkText.equals("2") && gameSequence == 2) {
+		        		gameSequence = 8;
+		        	}
+		        	
+		        	if(gameSequence==8) {
+		        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
+			        	dialogue.appendText(breakln);
+			        	dialogue.appendText("RED ALERT. RED ALERT. INTRUDERS DETECTED IN SOUTHERN BAY... DAMAGE TO HULL: CRITICAL... EVACUATE IMMEDIATELY.\n");
+			        	dialogue.appendText("You shoot out of bed immediately. Zeke is nowhere to be seen.\n");
+			        	dialogue.appendText(breakln);
+			        	dialogue.appendText("1.[Run]\n");
+			        	
+			        	if(gameSequence == 8 && checkText.equals("1")) {
+			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:52AM.\n");
+				        	dialogue.appendText(breakln);
+				        	dialogue.appendText("You run. Not sure where, not sure why, but you run.\n");
+				        	dialogue.appendText("Alarms are blaring, it's hard to think.\n");
+				        	dialogue.appendText(breakln);
+			        	}
+		        	}
+		         
 		        	
 		        	
 		        }
