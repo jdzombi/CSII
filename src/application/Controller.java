@@ -38,11 +38,13 @@ public class Controller implements Initializable {
 	Collection<String> inventory = new ArrayList<>();
 	final Iterator<String> i = inventory.iterator();
 	public String pname = "???";
+	public String CTime = "7:00";
 	public String breakln = "------------------------------------\n";
 	
 	int score = 0;
 	private int sequence = 0;
 	private int gameSequence = 0;
+	private boolean roomCheck = false;
 	
 	 private void game_Exit(){
 	        Platform.exit();
@@ -77,7 +79,9 @@ public class Controller implements Initializable {
 		       
 
 		// Display users input as formatted text in primary console.
+		       if(!checkText.equals("")) {
 		        dialogue.appendText( pname + ": " + inputText + "\n" );
+		       }
 
 
 		// Tutorial
@@ -132,7 +136,7 @@ public class Controller implements Initializable {
 		        	//""+dateFormat.format(time) real time
 		        	
 		        	if(gameSequence == 1) {
-		        	dialogue.setText("DATE: February 15th, 30XX. TIME: 7:00AM.\n");
+		        	dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 		        	scoreEnable = true;
 		        	dialogue.appendText(breakln);
 		        	dialogue.appendText("[BZZT]... [BZZT]... [BZZT]... You awake to the drone of your roommates alarm clock.");
@@ -143,19 +147,25 @@ public class Controller implements Initializable {
 		        	gameSequence = 2;
 		        	}
 		        	if(checkText.equals("1") && gameSequence == 2) {
-		        		gameSequence = 3;
-		        		dialogue.setText("DATE: February 15th, 30XX. TIME: 7:17AM.\n");
+		        		CTime = "7:17";
+		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 		        		scoreEnable = true;
 			        	dialogue.appendText(breakln);
 			        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
-			        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XgZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
+			        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
 			        	dialogue.appendText(breakln);
-			        	dialogue.appendText("1.[Check room]");
+			        	dialogue.appendText("1.[Leave room]\n");
+			        	gameSequence = 3;
 			        	
-			        	if(gameSequence == 2 && checkText.equals("1")) {
-			        		
-			        	}
 			        	
+		        	}
+		        	if(gameSequence == 3 && checkText.equals("check bedroom")) {
+		        		gameSequence = 4;
+		        		roomCheck = true;
+		        		CTime = "7:22";
+		        		bedroom();
+		        		
+		        		
 		        	}
 		        	
 		        	
@@ -235,7 +245,20 @@ public class Controller implements Initializable {
 		
 	}
 
-	
+	public void bedroom() {
+		
+		if(gameSequence == 4) {
+		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+		dialogue.appendText(breakln);
+		dialogue.appendText("A plain white, square room with one bed and two <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
+		dialogue.appendText("There is a single door that leads to the hallway.\n");
+		dialogue.appendText(breakln);
+		dialogue.appendText("1.[Leave room]\n");
+		
+		}
+		
+		
+	}
 
 	public void checkText_General(String checkText){
 
