@@ -250,7 +250,7 @@ public class Controller implements Initializable {
 		if(gameSequence == 4) {
 		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 		dialogue.appendText(breakln);
-		dialogue.appendText("A plain white, square room with one bed and two <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
+		dialogue.appendText("A pristine, plain white square room with one bed and one <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
 		dialogue.appendText("There is a single door that leads to the hallway.\n");
 		dialogue.appendText(breakln);
 		dialogue.appendText("1.[Leave room]\n");
