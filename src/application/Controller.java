@@ -31,6 +31,8 @@ public class Controller implements Initializable {
 	private boolean introScene = false;
 	private boolean controls = false;
 	private boolean quit = false;
+	private boolean nightStand = false;
+	private boolean map = false;
 	
 	Date time = new Date();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
@@ -96,7 +98,7 @@ public class Controller implements Initializable {
 		                
 		            	}
 		            		else if(checkText.equals("no") && quit == false) {
-		            			sequence = 5;
+		            			sequence = 7;
 		            			introScene = true;
 		            			gameSequence = 1;
 		            		}
@@ -125,7 +127,18 @@ public class Controller implements Initializable {
 		        		sequence = 5;
 		        	}
 		        
-		 
+		        	if(sequence == 5 && checkText.equals("check apple")) {
+		        		sequence = 6;
+		        		dialogue.appendText("\nWoah! An apple!\n\n");
+		        		dialogue.appendText("Keep out for items indicated on the overworld like <this>. Sometimes the clue you were looking for is right under your nose! But with that, I don't think I have anything else to teach you... Remember to be brave, and good luck!\n\n");
+		        		dialogue.appendText("Type -GO- whenever you are ready to start.\n\n");
+		        	}
+		        	if(sequence == 6 && checkText.equals("go")) {
+		        		sequence = 7; 
+		        		introScene = true;
+            			gameSequence = 1;
+		        		
+		        	}
 		        	
 		        	
 		        	
@@ -154,7 +167,7 @@ public class Controller implements Initializable {
 			        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
 			        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
 			        	dialogue.appendText(breakln);
-			        	dialogue.appendText("1.[Leave room]\n");
+			        	dialogue.appendText("1.[Leave room]\n\n");
 			        	gameSequence = 3;
 			        	
 			        	
@@ -167,8 +180,30 @@ public class Controller implements Initializable {
 		        		
 		        		
 		        	}
+		        	if(gameSequence == 4) {
+		        		if(checkText.equals("check window")) {
+		        			CTime = "7:34";
+		        			dialogue.appendText("\nThe vast, inky void of space never ceases to amaze you. Every star, every planet, so far away but all containing infinite possibilities. I wonder if anyone out there is staring back?\n");
+		        		}
+		        		
+		        		if(checkText.equals("check nightstand") && !map) {
+		        			dialogue.appendText("\nInside your nightstand you find a Map Expansion Chip for your M.E.H., how trivial. Why would you need a map when the ship is so easy to naviate? Either way, you insert it into your M.E.H..\n");
+		        			map = true;
+		        		}
+		        		else if(checkText.equals("check nightstand") && map) {
+		        			dialogue.appendText("\nThe nightstand is empty.\n");
+		        		}
+		        	}
 		        	
+		        	if(gameSequence == 3 || gameSequence == 4) {
+		        		if(checkText.equals("1")) {
+		        			gameSequence = 5;
+		        		}
+		        	}
 		        	
+		        	if(gameSequence == 5) {
+		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+		        	}
 		        	
 		        	
 		        	if(checkText.equals("2") && gameSequence == 2) {
@@ -186,8 +221,8 @@ public class Controller implements Initializable {
 			        	if(gameSequence == 8 && checkText.equals("1")) {
 			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:52AM.\n");
 				        	dialogue.appendText(breakln);
-				        	dialogue.appendText("You run. Not sure where, not sure why, but you run.\n");
-				        	dialogue.appendText("Alarms are blaring, it's hard to think.\n");
+				        	dialogue.appendText("You make for the door, no time to think.\n");
+				        	dialogue.appendText("Alarms are blaring, your head becomes clouded.\n");
 				        	dialogue.appendText(breakln);
 			        	}
 		        	}
@@ -298,9 +333,12 @@ public class Controller implements Initializable {
         //inventory item checks
         if(checkText.contains("check") && inventoryEnable){
         	
-        	if((checkText.contains("meh") || checkText.contains("m.e.h.")) && inventory.contains("M.E.H.")) {
-        	dialogue.appendText("\nThe Multipurpose Encyclopedia and Helper (M.E.H. for short) is a standard knowledgebase with additional functionality through the use of Expansion Chips.");
+        	if((checkText.contains("meh") || checkText.contains("m.e.h.")) && inventory.contains("M.E.H.") && !map) {
+        	dialogue.appendText("\nThe Multipurpose Encyclopedia and Helper (M.E.H. for short) is a standard knowledgebase with additional functionality through the use of Expansion Chips.\n");
         	}
+        	if((checkText.contains("meh") || checkText.contains("m.e.h.")) && inventory.contains("M.E.H.") && map) {
+            	dialogue.appendText("\nThe Multipurpose Encyclopedia and Helper (M.E.H. for short) is a standard knowledgebase with additional functionality through the use of Expansion Chips. Now with additional navigation capabilities.\n");
+            	}
         	
         	else if(checkText.contains("id") && inventory.contains("ID Card")) {
             	dialogue.appendText("\nYour standard Identification Card for the Federation of Engineers and Laborers Looking At Stars.\nNAME: Jack \nOCC: Janitor.\nNot the flashiest job, but certainly the most noble!\n\n");
