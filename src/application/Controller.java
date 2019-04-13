@@ -27,12 +27,12 @@ public class Controller implements Initializable {
 	private boolean tutorial = false;
 	private boolean scoreEnable = true;
 	private boolean inventoryEnable = true;
-	private boolean sword = false;
+	private boolean cc = false;
 	private boolean introScene = false;
 	private boolean controls = false;
 	private boolean quit = false;
-	private boolean nightStand = false;
 	private boolean map = false;
+	private boolean roomCheck = false;
 	
 	Date time = new Date();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
@@ -46,7 +46,8 @@ public class Controller implements Initializable {
 	int score = 0;
 	private int sequence = 0;
 	private int gameSequence = 0;
-	private boolean roomCheck = false;
+	private int conv = 0;
+	
 	
 	 private void game_Exit(){
 	        Platform.exit();
@@ -149,29 +150,41 @@ public class Controller implements Initializable {
 		        	//""+dateFormat.format(time) real time
 		        	
 		        	if(gameSequence == 1) {
-		        	dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
-		        	scoreEnable = true;
-		        	dialogue.appendText(breakln);
-		        	dialogue.appendText("[BZZT]... [BZZT]... [BZZT]... You awake to the drone of your roommates alarm clock.");
-		        	dialogue.appendText("\n...Hm? It seems like your shift doesn't start for another 2 hours...\n");
-		        	dialogue.appendText(breakln);
-		        	dialogue.appendText("1.[Get out of bed]\n");
-		        	dialogue.appendText("2.[Sleep in]\n\n");
-		        	gameSequence = 2;
+		        		bedroom();
+		        		gameSequence = 2;
+		        		cc = false;
 		        	}
+		        	
+		        	
+		        	
+		        	//checktext 1
 		        	if(checkText.equals("1") && gameSequence == 2) {
-		        		CTime = "7:17";
-		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
-		        		scoreEnable = true;
-			        	dialogue.appendText(breakln);
-			        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
-			        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
-			        	dialogue.appendText(breakln);
-			        	dialogue.appendText("1.[Leave room]\n\n");
-			        	gameSequence = 3;
-			        	
-			        	
+		        		bedroom();
+			        	gameSequence = 3;	
 		        	}
+		        	else if(checkText.equals("1") && (gameSequence == 3 || gameSequence == 4)) {
+		        		gameSequence = 5;
+		        	}
+		        	else if(checkText.equals("1") && gameSequence == 6 && !cc) {
+		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+		        		dialogue.appendText(breakln);
+		        		dialogue.appendText("\"Well hello there!\" Zeke says, cheerfully. \"Look who's up early.\" He mops in his usual counter-clockwise motion, in his usual spot, as usual.\n");
+		        		dialogue.appendText(breakln);
+		        		dialogue.appendText("1.[Enter Supply Closet]\n");
+		        		gameSequence = 7;
+		        		cc=true;
+		        	}
+		        	else if(checkText.equals("1") && gameSequence ==7) {
+		        		
+		        	}
+		        	
+		        	
+		        	
+		        	
+		        	
+		        	
+		        	
+		        	
 		        	if(gameSequence == 3 && checkText.equals("check bedroom")) {
 		        		gameSequence = 4;
 		        		roomCheck = true;
@@ -189,21 +202,25 @@ public class Controller implements Initializable {
 		        		if(checkText.equals("check nightstand") && !map) {
 		        			dialogue.appendText("\nInside your nightstand you find a Map Expansion Chip for your M.E.H., how trivial. Why would you need a map when the ship is so easy to naviate? Either way, you insert it into your M.E.H..\n");
 		        			map = true;
+		        			score += 7;
 		        		}
 		        		else if(checkText.equals("check nightstand") && map) {
 		        			dialogue.appendText("\nThe nightstand is empty.\n");
 		        		}
 		        	}
 		        	
-		        	if(gameSequence == 3 || gameSequence == 4) {
-		        		if(checkText.equals("1")) {
-		        			gameSequence = 5;
-		        		}
-		        	}
+		        	
 		        	
 		        	if(gameSequence == 5) {
-		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+		        		hallway();
+		        		gameSequence = 6;
 		        	}
+		        	
+		        	
+		        	
+		        	
+		        	
+		        	
 		        	
 		        	
 		        	if(checkText.equals("2") && gameSequence == 2) {
@@ -282,17 +299,50 @@ public class Controller implements Initializable {
 
 	public void bedroom() {
 		
-		if(gameSequence == 4) {
-		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
-		dialogue.appendText(breakln);
-		dialogue.appendText("A pristine, plain white square room with one bed and one <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
-		dialogue.appendText("There is a single door that leads to the hallway.\n");
-		dialogue.appendText(breakln);
-		dialogue.appendText("1.[Leave room]\n");
-		
+		if(gameSequence == 1) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+        	scoreEnable = true;
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("[BZZT]... [BZZT]... [BZZT]... You awake to the drone of your roommates alarm clock.");
+        	dialogue.appendText("\n...Hm? It seems like your shift doesn't start for another 2 hours...\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("1.[Get out of bed]\n");
+        	dialogue.appendText("2.[Sleep in]\n\n");
+			
 		}
 		
 		
+		if(gameSequence == 2) {
+			CTime = "7:17";
+    		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+    		scoreEnable = true;
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
+        	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("1.[Leave room]\n\n");
+		}
+		
+		if(gameSequence == 4) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("A pristine, plain white square room with one bed and one <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
+			dialogue.appendText("There is a single door that leads to the hallway.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("1.[Leave room]\n");
+		}
+	}
+	
+	public void hallway() {
+		if(gameSequence == 5) {
+		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+		dialogue.appendText(breakln);
+		dialogue.appendText("You walk out into the hallway you know so fondly. A large window stretches along the outer wall into space. Zeke is mopping the floor as usual. ");
+		dialogue.appendText("At the end of each hallway is a door you aren't allowed access to, so you don't ask questions. There is also one supply closet full of everything you'd ever need.\n");
+		dialogue.appendText(breakln);
+		dialogue.appendText("1.[Talk to Zeke]\n");
+		dialogue.appendText("2.[Enter Supply Closet]\n\n");
+		}
 	}
 
 	public void checkText_General(String checkText){
