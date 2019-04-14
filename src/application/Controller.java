@@ -268,9 +268,10 @@ public class Controller implements Initializable {
 			        	if(gameSequence == 13 && checkText.equals("1")) {
 			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:52AM.\n");
 				        	dialogue.appendText(breakln);
-				        	dialogue.appendText("You make for the door, no time to think.\n");
-				        	dialogue.appendText("Alarms are blaring, your head becomes clouded.\n");
+				        	dialogue.appendText("You rush out of your bedroom door... the hallway is empty. The warning siren lights paint the pristine hallway an eerie dark red.\n");
+				        	dialogue.appendText("You hear footsteps coming from the left.\n");
 				        	dialogue.appendText(breakln);
+				        	gameSequence = 14;
 			        	}
 		        	}
 		         
@@ -347,7 +348,7 @@ public class Controller implements Initializable {
     		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
     		scoreEnable = true;
         	dialogue.appendText(breakln);
-        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
+        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n\n");
         	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
         	dialogue.appendText(breakln);
         	dialogue.appendText("1.[Leave room]\n\n");
@@ -388,7 +389,7 @@ public class Controller implements Initializable {
 		if(gameSequence == 7) {
 			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 			dialogue.appendText(breakln);
-			dialogue.appendText("The supply closet is full of janitorial tools and supplies as usual. Metal shelves lined with cleaning chemicals, spare brooms, mops, and buckets all contained within a small, windowless room. ");
+			dialogue.appendText("The supply closet is full of janitorial tools and supplies. Metal shelves lined with cleaning chemicals, spare brooms, mops, and buckets all contained within a small, windowless room. ");
 			dialogue.appendText("Oddly enough, there is an unfamiliar red <toolbox> on the ground.\n");
 			dialogue.appendText(breakln);
 			dialogue.appendText("1.[Leave Closet]\n\n");
