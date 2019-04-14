@@ -175,9 +175,19 @@ public class Controller implements Initializable {
 		        		cc=true;
 		        	}
 		        	else if(checkText.equals("1") && gameSequence ==7) {
-		        		
+		        		sCloset();
+		        		gameSequence = 8;
 		        	}
-		        	
+		        	else if(checkText.equals("1") && gameSequence == 8) {
+		        		if(inventory.contains("Screwdriver")) {
+		        			gameSequence = 10;
+		        			hallway();
+		        		}
+		        		else if(!inventory.contains("Screwdriver")) {
+		        			gameSequence = 9;
+		        			hallway();
+		        		}
+		        	}
 		        	
 		        	
 		        	
@@ -210,6 +220,20 @@ public class Controller implements Initializable {
 		        	}
 		        	
 		        	
+		        	if(gameSequence == 8) {
+		        		if(checkText.equals("check toolbox")) {
+		        			
+		        			if(inventory.contains("Screwdriver")){
+				        		dialogue.appendText("The toolbox is empty.\n\n");
+				        		}
+		        			if(!inventory.contains("Screwdriver")){
+		        			dialogue.appendText("It's not commmon to see a toolbox around these parts. Perhaps a maintenance worker forgot it? Inside you find a screwdriver.\n\n");
+		        			inventory.add("Screwdriver");
+		        			score+=15;
+		        			}
+		        			
+		        		}
+		        	}
 		        	
 		        	if(gameSequence == 5) {
 		        		hallway();
@@ -224,10 +248,16 @@ public class Controller implements Initializable {
 		        	
 		        	
 		        	if(checkText.equals("2") && gameSequence == 2) {
+		        		gameSequence = 13;
+		        	}
+		        	else if (checkText.equals("2") && gameSequence == 6) {
+		        		gameSequence = 7;
+		        		sCloset();
 		        		gameSequence = 8;
+		        		
 		        	}
 		        	
-		        	if(gameSequence==8) {
+		        	if(gameSequence==13) {
 		        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
 			        	dialogue.appendText(breakln);
 			        	dialogue.appendText("RED ALERT. RED ALERT. INTRUDERS DETECTED IN SOUTHERN BAY... DAMAGE TO HULL: CRITICAL... EVACUATE IMMEDIATELY.\n");
@@ -235,7 +265,7 @@ public class Controller implements Initializable {
 			        	dialogue.appendText(breakln);
 			        	dialogue.appendText("1.[Run]\n");
 			        	
-			        	if(gameSequence == 8 && checkText.equals("1")) {
+			        	if(gameSequence == 13 && checkText.equals("1")) {
 			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:52AM.\n");
 				        	dialogue.appendText(breakln);
 				        	dialogue.appendText("You make for the door, no time to think.\n");
@@ -297,6 +327,7 @@ public class Controller implements Initializable {
 		
 	}
 
+	//rooms
 	public void bedroom() {
 		
 		if(gameSequence == 1) {
@@ -310,7 +341,6 @@ public class Controller implements Initializable {
         	dialogue.appendText("2.[Sleep in]\n\n");
 			
 		}
-		
 		
 		if(gameSequence == 2) {
 			CTime = "7:17";
@@ -337,14 +367,35 @@ public class Controller implements Initializable {
 		if(gameSequence == 5) {
 		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 		dialogue.appendText(breakln);
-		dialogue.appendText("You walk out into the hallway you know so fondly. A large window stretches along the outer wall into space. Zeke is mopping the floor as usual. ");
-		dialogue.appendText("At the end of each hallway is a door you aren't allowed access to, so you don't ask questions. There is also one supply closet full of everything you'd ever need.\n");
+		dialogue.appendText("You walk out into the hallway you know so fondly. A large window stretches along the outer wall showing the vast beauty of space. Zeke is mopping the floor as usual. ");
+		dialogue.appendText("At the end of each hallway is a door leading to the cafeteria and restroom areas, but they are locked until 10AM. There is also one supply closet full of everything you'd ever need.\n");
 		dialogue.appendText(breakln);
 		dialogue.appendText("1.[Talk to Zeke]\n");
 		dialogue.appendText("2.[Enter Supply Closet]\n\n");
 		}
+		
+		if(gameSequence == 9 || gameSequence == 10) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("You step back into the hallway, but... Zeke isn't there. How very unusual.");
+			dialogue.appendText("\n");
+			dialogue.appendText(breakln);
+		}
 	}
 
+	
+	public void sCloset() {
+		if(gameSequence == 7) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("The supply closet is full of janitorial tools and supplies as usual. Metal shelves lined with cleaning chemicals, spare brooms, mops, and buckets all contained within a small, windowless room. ");
+			dialogue.appendText("Oddly enough, there is an unfamiliar red <toolbox> on the ground.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("1.[Leave Closet]\n\n");
+		}
+	}
+	
+	
 	public void checkText_General(String checkText){
 
         // Check input for game commands
@@ -397,6 +448,9 @@ public class Controller implements Initializable {
         	else if(checkText.contains("cola") && inventory.contains("Bottle of Cola")) {
             	dialogue.appendText("\nA bottle of the finest made Cola in all of the Galaxy... or at least that's what the label says.\n");
             	}
+        	else if(checkText.contains("screwdriver") && inventory.contains("Screwdriver")) {
+        		dialogue.appendText("\nA tool for tightening and loosening screws. A simple, yet crucial tool.\n");
+        	}
         
         	
         }
