@@ -15,7 +15,8 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("JavaFX.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Game");
+			primaryStage.setTitle("Adventures of Jack Danger");
+			//primaryStage.setResizable(false);
 			primaryStage.show();		
 			}
 			catch(Exception e) {

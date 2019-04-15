@@ -188,7 +188,10 @@ public class Controller implements Initializable {
 		        			hallway();
 		        		}
 		        	}
-		        	
+		        	else if(checkText.equals("1") && gameSequence == 12) {
+		        		gameSequence = 13;
+		        		
+		        	}
 		        	
 		        	
 		        	
@@ -219,6 +222,10 @@ public class Controller implements Initializable {
 		        		}
 		        	}
 		        	
+		        	if(gameSequence == 5) {
+		        		hallway();
+		        		gameSequence = 6;
+		        	}
 		        	
 		        	if(gameSequence == 8) {
 		        		if(checkText.equals("check toolbox")) {
@@ -235,10 +242,7 @@ public class Controller implements Initializable {
 		        		}
 		        	}
 		        	
-		        	if(gameSequence == 5) {
-		        		hallway();
-		        		gameSequence = 6;
-		        	}
+		        	
 		        	
 		        	
 		        	
@@ -257,7 +261,7 @@ public class Controller implements Initializable {
 		        		
 		        	}
 		        	
-		        	if(gameSequence==13) {
+		        	if(gameSequence==130) {
 		        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
 			        	dialogue.appendText(breakln);
 			        	dialogue.appendText("RED ALERT. RED ALERT. INTRUDERS DETECTED IN SOUTHERN BAY... DAMAGE TO HULL: CRITICAL... EVACUATE IMMEDIATELY.\n");
@@ -265,13 +269,13 @@ public class Controller implements Initializable {
 			        	dialogue.appendText(breakln);
 			        	dialogue.appendText("1.[Run]\n");
 			        	
-			        	if(gameSequence == 13 && checkText.equals("1")) {
-			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:52AM.\n");
+			        	if(gameSequence == 130 && checkText.equals("1")) {
+			        		dialogue.setText("DATE: February 15th, 30XX. TIME: 8:45AM.\n");
 				        	dialogue.appendText(breakln);
 				        	dialogue.appendText("You rush out of your bedroom door... the hallway is empty. The warning siren lights paint the pristine hallway an eerie dark red.\n");
 				        	dialogue.appendText("You hear footsteps coming from the left.\n");
 				        	dialogue.appendText(breakln);
-				        	gameSequence = 14;
+				        	gameSequence = 131;
 			        	}
 		        	}
 		         
@@ -378,9 +382,12 @@ public class Controller implements Initializable {
 		if(gameSequence == 9 || gameSequence == 10) {
 			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 			dialogue.appendText(breakln);
-			dialogue.appendText("You step back into the hallway, but... Zeke isn't there. How very unusual.");
+			dialogue.appendText("You step back into the hallway, but... Zeke isn't there. How very unusual. Maybe he is back in the room?");
 			dialogue.appendText("\n");
 			dialogue.appendText(breakln);
+			dialogue.appendText("1.[Enter Bedroom]\n\n");
+			gameSequence = 11;
+			
 		}
 	}
 
