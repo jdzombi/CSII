@@ -442,7 +442,7 @@ public class Controller implements Initializable {
         	dialogue.appendText("You slam down on the launch button and shoot off with massive force into space. You barely were able to escape, and things seemed to have worked out... but wait, where's your ID? You must have lost it in the commotion... well luckily that's the least of your worries. Now it's just smooth sailing until... wherever you land.\n");
         	dialogue.appendText("\n(Back on the ship...)\n\n");
         	dialogue.appendText("Guard: \"Boss! The ship has been cleared, and we got what we came here for.\"\n");
-        	dialogue.appendText("Cedrix: [Peering down at your lost ID] \"Hmph... In that case, clear out. We have no time to waste.\"\n");
+        	dialogue.appendText("Cedrix: [Peering down at your lost ID] \"Hmph... In that case, clear out. We have no time to waste. The destruction of the galaxy begins now.\"\n");
         	dialogue.appendText(breakln);
         	dialogue.appendText("1.[CONTINUE]");
         	gameSequence = 19;
