@@ -243,7 +243,7 @@ public class Controller implements Initializable {
 				        		dialogue.appendText("The toolbox is empty.\n\n");
 				        		}
 		        			if(!inventory.contains("Screwdriver")){
-		        			dialogue.appendText("It's not commmon to see a toolbox around these parts. Perhaps a maintenance worker forgot it? Inside you find a screwdriver and take it.\n\n");
+		        			dialogue.appendText("It's not commmon to see a toolbox around these parts. Perhaps a maintenance worker forgot it? Inside you find a screwdriver. The screwdriver has been added to your inventory.\n\n");
 		        			inventory.add("Screwdriver");
 		        			score+=15;
 		        			}
