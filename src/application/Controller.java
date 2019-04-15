@@ -155,7 +155,10 @@ public class Controller implements Initializable {
 		        		cc = false;
 		        	}
 		        	
-		        	
+		        	if(gameSequence == 5) {
+		        		hallway();
+		        		gameSequence = 6;
+		        	}
 		        	
 		        	//checktext 1
 		        	if(checkText.equals("1") && gameSequence == 2) {
@@ -164,13 +167,14 @@ public class Controller implements Initializable {
 		        	}
 		        	else if(checkText.equals("1") && (gameSequence == 3 || gameSequence == 4)) {
 		        		gameSequence = 5;
+		        		hallway();
 		        	}
 		        	else if(checkText.equals("1") && gameSequence == 6 && !cc) {
 		        		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
 		        		dialogue.appendText(breakln);
 		        		dialogue.appendText("\"Well hello there!\" Zeke says, cheerfully. \"Look who's up early.\" He mops in his usual counter-clockwise motion, in his usual spot, as usual.\n");
 		        		dialogue.appendText(breakln);
-		        		dialogue.appendText("1.[Enter Supply Closet]\n");
+		        		dialogue.appendText("1.[Enter Supply Closet]\n\n");
 		        		gameSequence = 7;
 		        		cc=true;
 		        	}
@@ -188,14 +192,23 @@ public class Controller implements Initializable {
 		        			hallway();
 		        		}
 		        	}
-		        	else if(checkText.equals("1") && gameSequence == 12) {
+		        	else if(checkText.equals("1") && gameSequence == 11) {
 		        		gameSequence = 13;
-		        		
+		        		hallway();
 		        	}
-		        	
-		        	
-		        	
-		        	
+		        	else if(checkText.equals("1") && (gameSequence == 131 || gameSequence == 14)) {
+		        		gameSequence = 15;
+		        		gameOver();
+		        	}
+		        	else if(checkText.equals("1") && gameSequence == 17) {
+		        		gameSequence = 18;
+		        		score+=3;
+		        		end();
+		        	}
+		        	else if(checkText.equals("1")&& gameSequence ==19) {
+		        		gameSequence = 20;
+		        		end();
+		        	}
 		        	
 		        	
 		        	if(gameSequence == 3 && checkText.equals("check bedroom")) {
@@ -207,10 +220,7 @@ public class Controller implements Initializable {
 		        		
 		        	}
 		        	if(gameSequence == 4) {
-		        		if(checkText.equals("check window")) {
-		        			CTime = "7:34";
-		        			dialogue.appendText("\nThe vast, inky void of space never ceases to amaze you. Every star, every planet, so far away but all containing infinite possibilities. I wonder if anyone out there is staring back?\n");
-		        		}
+		        		
 		        		
 		        		if(checkText.equals("check nightstand") && !map) {
 		        			dialogue.appendText("\nInside your nightstand you find a Map Expansion Chip for your M.E.H., how trivial. Why would you need a map when the ship is so easy to naviate? Either way, you insert it into your M.E.H..\n");
@@ -220,16 +230,17 @@ public class Controller implements Initializable {
 		        		else if(checkText.equals("check nightstand") && map) {
 		        			dialogue.appendText("\nThe nightstand is empty.\n");
 		        		}
+		        		
+		        		if(checkText.equals("check window")) {
+		        			CTime = "7:34";
+		        			dialogue.appendText("\nThe vast, inky void of space never ceases to amaze you. Every star, every planet, so far away but all containing infinite possibilities. I wonder if anyone out there is staring back?\n");
+		        		}
 		        	}
 		        	
-		        	if(gameSequence == 5) {
-		        		hallway();
-		        		gameSequence = 6;
-		        	}
+		        	
 		        	
 		        	if(gameSequence == 8) {
 		        		if(checkText.equals("check toolbox")) {
-		        			
 		        			if(inventory.contains("Screwdriver")){
 				        		dialogue.appendText("The toolbox is empty.\n\n");
 				        		}
@@ -238,7 +249,6 @@ public class Controller implements Initializable {
 		        			inventory.add("Screwdriver");
 		        			score+=15;
 		        			}
-		        			
 		        		}
 		        	}
 		        	
@@ -246,19 +256,18 @@ public class Controller implements Initializable {
 		        	
 		        	
 		        	
-		        	
-		        	
-		        	
-		        	
-		        	
 		        	if(checkText.equals("2") && gameSequence == 2) {
-		        		gameSequence = 13;
+		        		gameSequence = 130;
 		        	}
 		        	else if (checkText.equals("2") && gameSequence == 6) {
 		        		gameSequence = 7;
 		        		sCloset();
 		        		gameSequence = 8;
 		        		
+		        	}
+		        	else if(checkText.equals("2") && (gameSequence == 131 || gameSequence == 14)) {
+		        		gameSequence = 16;
+		        		escapeRoom();
 		        	}
 		        	
 		        	if(gameSequence==130) {
@@ -275,6 +284,8 @@ public class Controller implements Initializable {
 				        	dialogue.appendText("You rush out of your bedroom door... the hallway is empty. The warning siren lights paint the pristine hallway an eerie dark red.\n");
 				        	dialogue.appendText("You hear footsteps coming from the left.\n");
 				        	dialogue.appendText(breakln);
+				        	dialogue.appendText("1.[Go Left]\n");
+				        	dialogue.appendText("2.[Go Right]\n\n");
 				        	gameSequence = 131;
 			        	}
 		        	}
@@ -297,13 +308,13 @@ public class Controller implements Initializable {
 
 		// Pass the users input text to functions which will check for keywords
 		        checkText_General(checkText);
-		        scoreField.setText("Score: " + score +"/100");
+		        scoreField.setText("Score: " + score +"/25");
 		        scoreEnable = true;
 		        inventoryEnable = true;
 		        
 		        
-		        if(score >= 100) {
-		        	scoreField.setText("Score: "+score + "/100 Congrats!");
+		        if(score >= 25) {
+		        	scoreField.setText("Score: "+score + "/25 Congrats!");
 		        	scoreEnable = false;
 		        }
 		      
@@ -324,9 +335,6 @@ public class Controller implements Initializable {
 		if(sequence==2) {
 			controls = true;
 		}
-		
-		
-		
 		
 		
 		
@@ -352,7 +360,7 @@ public class Controller implements Initializable {
     		dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
     		scoreEnable = true;
         	dialogue.appendText(breakln);
-        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n\n");
+        	dialogue.appendText("After working up the courage to leave bed a bit early today, you finally stand up.\n");
         	dialogue.appendText("You stand in your 2-person <bedroom> shared by you and your roommate XygZykyel (or Zeke for short). Zeke seems to have left for his shift in the time it took you to wake up.\n");
         	dialogue.appendText(breakln);
         	dialogue.appendText("1.[Leave room]\n\n");
@@ -364,7 +372,7 @@ public class Controller implements Initializable {
 			dialogue.appendText("A pristine, plain white square room with one bed and one <nightstand> for you and Zeke alike. On the wall is a <window> showing the vast, empty abyss of space.\n");
 			dialogue.appendText("There is a single door that leads to the hallway.\n");
 			dialogue.appendText(breakln);
-			dialogue.appendText("1.[Leave room]\n");
+			dialogue.appendText("1.[Leave room]\n\n");
 		}
 	}
 	
@@ -389,9 +397,20 @@ public class Controller implements Initializable {
 			gameSequence = 11;
 			
 		}
+		
+		if(gameSequence == 13) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("Before you even make it to the door the ship's alarms start blaring.\n");
+			dialogue.appendText("RED ALERT. RED ALERT. INTRUDERS DETECTED IN SOUTHERN BAY... DAMAGE TO HULL: CRITICAL... EVACUATE IMMEDIATELY.\n");
+			dialogue.appendText("You hear footsteps coming from the left end of the hall. The locks on all of ship's doors deactivate.\n");
+			dialogue.appendText(breakln);
+			dialogue.appendText("1.[Go Left]\n");
+			dialogue.appendText("2.[Go Right]\n\n");
+			gameSequence = 14;
+		}
 	}
 
-	
 	public void sCloset() {
 		if(gameSequence == 7) {
 			dialogue.setText("DATE: February 15th, 30XX. TIME: "+CTime+"AM.\n");
@@ -403,6 +422,57 @@ public class Controller implements Initializable {
 		}
 	}
 	
+	public void escapeRoom() {
+		if(gameSequence == 16) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("You manage to find your way into the ship's Escape-Pod bay, and there's one Pod left just for you! Without hesitation you prep the pod for launch when suddenly... ");
+        	dialogue.appendText("[BAM!!] The door to the bay is kicked down by Cedrix Wake!! Infamous Space-Pirate Captain and all-around mean dude. ");
+        	dialogue.appendText("Dressed in his signature black and yellow jacket and his menacing looking mask, he is not a man you want to trifle with. ");
+        	dialogue.appendText("You run to your pod as quickly as possible and hop in. It's time to boogie!\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("1.[LAUNCH]\n\n");
+        	gameSequence = 17;
+        	inventory.remove("ID Card");
+		}
+	}
+	
+	public void end() {
+		if(gameSequence == 18) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("You slam down on the launch button and shoot off with massive force into space. You barely were able to escape, and things seemed to have worked out... but wait, where's your ID? You must have lost it in the commotion... well luckily that's the least of your worries. Now it's just smooth sailing until... wherever you land.\n");
+        	dialogue.appendText("\n(Back on the ship...)\n\n");
+        	dialogue.appendText("Guard: \"Boss! The ship has been cleared, and we got what we came here for.\"\n");
+        	dialogue.appendText("Cedrix: [Peering down at your lost ID] \"Hmph... In that case, clear out. We have no time to waste.\"\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("1.[CONTINUE]");
+        	gameSequence = 19;
+		}
+		if(gameSequence == 20) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("You have completed the Adventures of Jack Danger Demo! Thank you very much for playing. Did you get all the points you could manage? ");
+        	dialogue.appendText("If not, you can alyways try again!\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("Type -QUIT- whenever you want to leave the game... or don't! We won't kick you out.\n\n");
+			
+		}
+	}
+	
+	//game over
+	public void gameOver() {
+		if(gameSequence == 15) {
+			dialogue.setText("DATE: February 15th, 30XX. TIME: 8:43AM.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("Your curiosity gets the best of you, and you rush through the door only to be greeted by two armed space pirates! (As opposed to one armed pirates)\n");
+        	dialogue.appendText("The pirates gun you down mercilessly.\n");
+        	dialogue.appendText(breakln);
+        	dialogue.appendText("--GAME OVER--\n\n");
+        	dialogue.appendText("Type -QUIT- to Exit the game.\n");
+		}
+		
+	}
 	
 	public void checkText_General(String checkText){
 
@@ -467,7 +537,7 @@ public class Controller implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		scoreField.appendText(" " + score +"/100");
+		scoreField.appendText(" " + score +"/25");
 		try {
 			beginning();
 		} catch (InterruptedException e) {
