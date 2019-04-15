@@ -108,8 +108,6 @@ public class Controller implements Initializable {
 		            	dialogue.appendText("\nIn this text-based adventure game, you will respond to prompts on the screen, but you do have commands you can access at (mostly) any time!");
 		            	dialogue.appendText("\n"); dialogue.appendText("\n-INVENTORY: Displays your currently held items.");
 		            	dialogue.appendText("\n-CHECK <ITEM>: Allows you to check an item in your inventory or any other interactable item.");
-		            	dialogue.appendText("\n-SAVE");
-		            	dialogue.appendText("\n-LOAD");
 		            	dialogue.appendText("\n-QUIT: Exits you out of the game. Be sure to save first!\n");
 		            	dialogue.appendText("\nStart off by trying the -inventory- command!\n");
 		            	sequence = 3;
@@ -245,7 +243,7 @@ public class Controller implements Initializable {
 				        		dialogue.appendText("The toolbox is empty.\n\n");
 				        		}
 		        			if(!inventory.contains("Screwdriver")){
-		        			dialogue.appendText("It's not commmon to see a toolbox around these parts. Perhaps a maintenance worker forgot it? Inside you find a screwdriver.\n\n");
+		        			dialogue.appendText("It's not commmon to see a toolbox around these parts. Perhaps a maintenance worker forgot it? Inside you find a screwdriver and take it.\n\n");
 		        			inventory.add("Screwdriver");
 		        			score+=15;
 		        			}
