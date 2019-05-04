@@ -96,9 +96,10 @@ public class Controller implements Initializable {
 		            	if(checkText.equals("yes") && quit == false) {
 		                dialogue.setText("In that case, let me tell you how to play!\n");
 		                controls = true;
+		                sequence = 1;
 		                
 		            	}
-		            		else if(checkText.equals("no") && quit == false) {
+		            		else if(checkText.equals("no") && quit == false && sequence == 0) {
 		            			sequence = 7;
 		            			introScene = true;
 		            			gameSequence = 1;

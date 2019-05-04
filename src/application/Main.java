@@ -19,7 +19,9 @@ public class Main extends Application {
 			primaryStage.getIcons().add(new Image("file:icon.png"));
 			primaryStage.setTitle("Adventures of Jack Danger");
 			//primaryStage.setResizable(false);
-			primaryStage.show();		
+			primaryStage.show();
+			
+			
 			}
 			catch(Exception e) {
 				e.printStackTrace();

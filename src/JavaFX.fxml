@@ -13,16 +13,16 @@
          <children>
             <BorderPane prefHeight="397.0" prefWidth="596.0">
                <center>
-                  <TextArea fx:id="dialogue" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER">
+                  <TextArea fx:id="dialogue" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" BorderPane.alignment="CENTER" style="-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; ">
                      <font>
                         <Font name="Lucida Console" size="12.0" />
                      </font></TextArea>
                </center>
                <bottom>
-                  <TextField fx:id="inputField" onAction="#inputTextHandler" promptText="&gt;" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="inputField" onAction="#inputTextHandler" promptText="&gt;" BorderPane.alignment="CENTER" style="-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; " />
                </bottom>
                <top>
-                  <TextField fx:id="scoreField" editable="false" text="Score:" BorderPane.alignment="CENTER">
+                  <TextField fx:id="scoreField" editable="false" text="Score:" BorderPane.alignment="CENTER" style="-fx-control-inner-background:#000000; -fx-font-weight:bold; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; ">
                      <font>
                         <Font name="Lucida Console" size="12.0" />
                      </font>
